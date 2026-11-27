@@ -1,0 +1,218 @@
+[
+ {
+  "name": "Python",
+  "kind": "Language",
+  "icon": "python",
+  "abbr": null
+ },
+ {
+  "name": "SQL",
+  "kind": "Language",
+  "icon": null,
+  "abbr": "SQL"
+ },
+ {
+  "name": "JavaScript",
+  "kind": "Language",
+  "icon": "javascript",
+  "abbr": null
+ },
+ {
+  "name": "Java",
+  "kind": "Language",
+  "icon": "java",
+  "abbr": null
+ },
+ {
+  "name": "C++",
+  "kind": "Language",
+  "icon": "c-plusplus",
+  "abbr": null
+ },
+ {
+  "name": "PHP",
+  "kind": "Language",
+  "icon": "php",
+  "abbr": null
+ },
+ {
+  "name": "Amazon Redshift",
+  "kind": "Warehouse",
+  "icon": "aws-redshift",
+  "abbr": null
+ },
+ {
+  "name": "Snowflake",
+  "kind": "Warehouse",
+  "icon": "snowflake",
+  "abbr": null
+ },
+ {
+  "name": "PostgreSQL",
+  "kind": "Database",
+  "icon": "postgres",
+  "abbr": null
+ },
+ {
+  "name": "MySQL",
+  "kind": "Database",
+  "icon": "mysql",
+  "abbr": null
+ },
+ {
+  "name": "Amazon DynamoDB",
+  "kind": "Database",
+  "icon": "aws-dynamodb",
+  "abbr": null
+ },
+ {
+  "name": "Qdrant",
+  "kind": "Vector database",
+  "icon": "qdrant",
+  "abbr": null
+ },
+ {
+  "name": "Amazon S3",
+  "kind": "Storage",
+  "icon": "aws-s3",
+  "abbr": null
+ },
+ {
+  "name": "AWS Lambda",
+  "kind": "Serverless",
+  "icon": "aws-lambda",
+  "abbr": null
+ },
+ {
+  "name": "AWS Glue",
+  "kind": "ETL",
+  "icon": "aws-glue",
+  "abbr": null
+ },
+ {
+  "name": "Amazon Athena",
+  "kind": "Query",
+  "icon": "aws-athena",
+  "abbr": null
+ },
+ {
+  "name": "Amazon EventBridge",
+  "kind": "Events",
+  "icon": "aws-eventbridge",
+  "abbr": null
+ },
+ {
+  "name": "Databricks",
+  "kind": "Lakehouse",
+  "icon": "databricks",
+  "abbr": null
+ },
+ {
+  "name": "Apache Airflow",
+  "kind": "Orchestration",
+  "icon": "airflow",
+  "abbr": null
+ },
+ {
+  "name": "dbt",
+  "kind": "Models",
+  "icon": "dbt",
+  "abbr": null
+ },
+ {
+  "name": "Apache Spark",
+  "kind": "PySpark",
+  "icon": "apache-spark",
+  "abbr": null
+ },
+ {
+  "name": "Azure Data Factory",
+  "kind": "Pipelines",
+  "icon": "azure",
+  "abbr": null
+ },
+ {
+  "name": "GitHub Actions",
+  "kind": "CI/CD",
+  "icon": "github-actions",
+  "abbr": null
+ },
+ {
+  "name": "Git",
+  "kind": "Version control",
+  "icon": "git",
+  "abbr": null
+ },
+ {
+  "name": "Tableau",
+  "kind": "Dashboards",
+  "icon": "tableau",
+  "abbr": null
+ },
+ {
+  "name": "Power BI",
+  "kind": "Dashboards",
+  "icon": "power-bi",
+  "abbr": null
+ },
+ {
+  "name": "Looker Studio",
+  "kind": "Dashboards",
+  "icon": "looker",
+  "abbr": null
+ },
+ {
+  "name": "Apache Superset",
+  "kind": "Dashboards",
+  "icon": "apache-superset-icon",
+  "abbr": null
+ },
+ {
+  "name": "Adobe CJA",
+  "kind": "Web analytics",
+  "icon": null,
+  "abbr": "CJA"
+ },
+ {
+  "name": "Google Analytics 4",
+  "kind": "Web analytics",
+  "icon": "google-analytics",
+  "abbr": null
+ },
+ {
+  "name": "Google Tag Manager",
+  "kind": "Tagging",
+  "icon": "google-tag-manager",
+  "abbr": null
+ },
+ {
+  "name": "TensorFlow",
+  "kind": "Machine learning",
+  "icon": "tensorflow",
+  "abbr": null
+ },
+ {
+  "name": "Hugging Face",
+  "kind": "Embeddings",
+  "icon": "hugging-face",
+  "abbr": null
+ },
+ {
+  "name": "Flask",
+  "kind": "APIs",
+  "icon": "flask",
+  "abbr": null
+ },
+ {
+  "name": "Streamlit",
+  "kind": "Apps",
+  "icon": "streamlit",
+  "abbr": null
+ },
+ {
+  "name": "Jira",
+  "kind": "Tracking",
+  "icon": "jira",
+  "abbr": null
+ }
+]

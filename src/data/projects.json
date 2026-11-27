@@ -1,0 +1,574 @@
+[
+ {
+  "slug": "blunderchess",
+  "name": "BlunderChess",
+  "title": "BlunderChess, move analytics for chess",
+  "when": "Aug to Oct 2026",
+  "context": "Personal build",
+  "status": "Runs locally",
+  "oneLine": "A local web app for playing chess against Stockfish, with move-by-move feedback that flags blunders using centipawn loss.",
+  "teaser": "Chess against Stockfish 18 at 12 Elo-capped levels, with a blunder check after every move.",
+  "problem": "A chess engine at full strength is no use as an opponent for a beginner, and Stockfish's Skill Level setting alone weakens it in ways that feel artificial. An earlier version of the app graded moves with a shallow static evaluation that could not see one move ahead, so hanging the queen was reported as a good move.",
+  "built": [
+   "Served a static front end from an Express server, with chess.js for the rules and Stockfish 18 WASM running in-process behind one serialised job queue for both move search and analysis",
+   "Graded each move by centipawn loss against the engine's best move, mapped to five bands from great to blunder, the method Lichess and chess.com use",
+   "Built a 12-level difficulty ladder: levels 1 to 8 use Stockfish Skill Level, levels 9 to 12 switch on UCI_LimitStrength with a UCI_Elo cap",
+   "Added guided opening drills (London System, Caro-Kann Defence), a best-move arrow after mistakes, Chess960 mode, clocks and PGN export",
+   "Wrote an engine-backed regression test that boots the server and asserts known blunders are flagged and sound moves are not"
+  ],
+  "results": [
+   "12 difficulty levels, from Skill Level 0 at 400 ms per move up to a 3190 Elo cap at 5000 ms per move",
+   "Move-quality regression suite of 20 known positions checked against the live engine",
+   "UX audit against Nielsen's 10 usability heuristics produced 7 prioritised fixes, each sized by effort"
+  ],
+  "detail": "With UCI_LimitStrength on, Stockfish ignores Skill Level and has an Elo floor around 1320, so an Elo-only ladder made the easy levels feel identical. The fix was to drive the lower levels with Skill Level, which scales below that floor, and keep the Elo limiter for the top four levels.",
+  "stack": [
+   {
+    "name": "Node.js",
+    "icon": "nodejs"
+   },
+   {
+    "name": "Express",
+    "icon": "express"
+   },
+   {
+    "name": "chess.js",
+    "icon": "ui-crown"
+   },
+   {
+    "name": "Stockfish 18 (WASM)",
+    "icon": "ui-cpu"
+   },
+   {
+    "name": "JavaScript",
+    "icon": "javascript"
+   },
+   {
+    "name": "HTML",
+    "icon": "html"
+   },
+   {
+    "name": "CSS",
+    "icon": "css"
+   }
+  ],
+  "cover": "photo-f148042600",
+  "coverAlt": "Wooden chess pieces on a board, seen close up",
+  "coverCredit": {
+   "by": "Aaaatu",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Chess_pieces_close_up.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "rag-bot",
+  "name": "Research Paper RAG Bot",
+  "title": "A RAG bot over research paper data",
+  "when": "Jul 2025",
+  "context": "Personal build",
+  "status": "Built in July 2025",
+  "oneLine": "A retrieval-augmented question-answering system over research-paper metadata, using a Qdrant vector database to ground LLM answers.",
+  "teaser": "Retrieval over 10M+ paper records: queries 50% faster, semantic matches 35% better.",
+  "problem": "",
+  "built": [
+   "Stored text embeddings in a Qdrant vector database for LLM retrieval",
+   "Engineered an ingestion pipeline over 10M+ research-paper metadata entries",
+   "Wrote an ETL step that cleans, chunks and vectorises text for semantic retrieval",
+   "Passed retrieved passages to an LLM so answers are grounded in the source papers"
+  ],
+  "results": [
+   "+50% query speed from vector retrieval",
+   "-40% preprocessing time through the ingestion pipeline",
+   "+35% semantic accuracy on retrieval"
+  ],
+  "detail": "",
+  "stack": [
+   {
+    "name": "Qdrant",
+    "icon": "qdrant"
+   },
+   {
+    "name": "Python",
+    "icon": "python"
+   }
+  ],
+  "cover": "photo-f184283011",
+  "coverAlt": "A long aisle between full library bookshelves",
+  "coverCredit": {
+   "by": "Guywelch2000",
+   "licence": "CC BY 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Bookshelves_Suzzallo_Allen_Library_University_of_Washington_Seattle_Washington_2026.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "weather-api",
+  "name": "Weather Vector Search API",
+  "title": "Weather data search by meaning, as an API",
+  "when": "2026",
+  "context": "Personal build",
+  "status": "A Databricks course project",
+  "oneLine": "A REST service that harvests National Weather Service text, embeds it into pgvector on Lakebase and serves semantic search.",
+  "teaser": "Weather service data as 384-dimension vectors in pgvector, searched by meaning through Flask.",
+  "problem": "Course homework on the DataExpert.io Databricks track: rebuild the reference app's news-embedding pipeline end to end for a new unstructured source, weather. The target was that a free-text question such as \"flash flood risk this weekend\" returns the most relevant weather documents, ranked by vector similarity.",
+  "built": [
+   "Harvested alerts and narrative forecasts from the National Weather Service API, which needs no API key, and normalised each item into a document record",
+   "Stored the documents in Lakebase PostgreSQL with the raw JSON payload kept alongside for provenance",
+   "Embedded the text with sentence-transformers all-MiniLM-L6-v2 into 384-dimension pgvector columns",
+   "Exposed Flask REST endpoints for sync and for semantic search"
+  ],
+  "results": [
+   "Search by meaning over weather alerts and forecasts, with the same vectors as the course news pipeline."
+  ],
+  "detail": "The service uses the same 384-dimension MiniLM model as the course's existing news pipeline, so weather and news vectors stay compatible and can be queried with the same distance operator.",
+  "stack": [
+   {
+    "name": "Python",
+    "icon": "python"
+   },
+   {
+    "name": "Flask",
+    "icon": "flask"
+   },
+   {
+    "name": "Lakebase PostgreSQL",
+    "icon": "ui-box"
+   },
+   {
+    "name": "pgvector",
+    "icon": "postgres"
+   },
+   {
+    "name": "sentence-transformers",
+    "icon": "hugging-face"
+   },
+   {
+    "name": "all-MiniLM-L6-v2",
+    "icon": "hugging-face"
+   },
+   {
+    "name": "National Weather Service API",
+    "icon": "ui-cloud-sun"
+   }
+  ],
+  "cover": "photo-f74472621",
+  "coverAlt": "A white weather screen on legs in an open field, a wind gauge on its roof",
+  "coverCredit": {
+   "by": "Metfm",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Stevenson_screen_.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "job-copilot",
+  "name": "AI Job Hunting Copilot",
+  "title": "An AI copilot that ranks job-posting data",
+  "when": "2026",
+  "context": "Personal build",
+  "status": "Built in 2026",
+  "oneLine": "An AI job-search agent that ingests postings from three job APIs and ranks fit against a candidate's resume and constraints.",
+  "teaser": "Pulls jobs from Adzuna, USAJobs and RemoteOK, matches them to a resume by meaning, and lets an LLM agent rank the fit.",
+  "problem": "Job search is high-volume and noisy, and matching a resume to the right roles by hand is slow.",
+  "built": [
+   "Integrated the Adzuna, USAJobs and RemoteOK APIs to ingest job postings",
+   "Designed a relational Lakebase data model for profiles, jobs and the application pipeline",
+   "Ran semantic retrieval over job descriptions and the resume",
+   "Used an LLM agent to rank fit on skills, role, location and constraints and to move applications through pipeline stages"
+  ],
+  "results": [
+   "The code and its figures are being prepared for GitHub."
+  ],
+  "detail": "",
+  "stack": [
+   {
+    "name": "Adzuna API",
+    "icon": "ui-briefcase"
+   },
+   {
+    "name": "USAJobs API",
+    "icon": "ui-briefcase"
+   },
+   {
+    "name": "RemoteOK API",
+    "icon": "ui-briefcase"
+   },
+   {
+    "name": "Lakebase",
+    "icon": "databricks"
+   }
+  ],
+  "cover": "photo-f83258646",
+  "coverAlt": "A pair of old brass binoculars seen from the front",
+  "coverCredit": {
+   "by": "Unknown author",
+   "licence": "CC BY 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Binoculars_(AM_2016.34.1-8).jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "ticketing",
+  "name": "Support Ticketing App",
+  "title": "Support ticketing data app on Databricks",
+  "when": "Aug 2026",
+  "context": "Personal build",
+  "status": "Shipped",
+  "oneLine": "An internal support ticketing app with message threads and a status workflow, on Lakebase Postgres and Databricks Apps.",
+  "teaser": "Tickets with message threads and a status history, behind a Streamlit app on Databricks Apps. Each Postgres connection mints its own OAuth token, so sessions survive the one-hour expiry.",
+  "problem": "Day 1 boot camp homework: build a small Databricks App whose operational data lives in Lakebase, where users create support tickets, add messages and move tickets through statuses. Lakebase issues no static password, which rules out the usual Postgres connection setup.",
+  "built": [
+   "Designed a support schema with tickets, ticket_messages (cascading delete) and a ticket_status_history audit trail, with CHECK constraints on priority and category",
+   "Built a Streamlit UI on Databricks Apps with status and priority filters, free-text search, input validation, statistics and a confirmed delete",
+   "Wrote a connection layer that mints a Databricks OAuth token per physical connection through SQLAlchemy's do_connect hook, cached and refreshed 5 minutes before expiry",
+   "Kept every secret out of the source: the app runs as its service principal and the database password is minted at runtime",
+   "Wrote a ten-file build guide with the reasoning and a verification for each step, plus an explanation of every SQL statement"
+  ],
+  "results": [
+   "Delivered all 5 required features and 6 bonus features",
+   "Idempotent seed data of 5 tickets, 13 messages and 4 statuses",
+   "No password stored anywhere in the project"
+  ],
+  "detail": "Lakebase uses a one-hour OAuth token as the Postgres password, and expiry is checked only at login. A token baked into the engine URL works through testing, then every new pooled connection fails after an hour, so a fresh token has to be supplied in SQLAlchemy's do_connect hook each time a physical connection opens.",
+  "stack": [
+   {
+    "name": "Python 3.11",
+    "icon": "ui-box"
+   },
+   {
+    "name": "Streamlit",
+    "icon": "streamlit"
+   },
+   {
+    "name": "Databricks Apps",
+    "icon": "databricks"
+   },
+   {
+    "name": "Lakebase Postgres",
+    "icon": "postgres"
+   },
+   {
+    "name": "SQLAlchemy",
+    "icon": "python"
+   },
+   {
+    "name": "psycopg",
+    "icon": "postgres"
+   },
+   {
+    "name": "Databricks SDK",
+    "icon": "databricks"
+   },
+   {
+    "name": "pandas",
+    "icon": "pandas-icon"
+   }
+  ],
+  "cover": "photo-f2547632",
+  "coverAlt": "A rubber date stamp with status words such as paid, checked and done",
+  "coverCredit": {
+   "by": "Reinhard Kirchner",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Buchungsstempel.JPG",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "sales-dashboard",
+  "name": "Sales performance dashboard",
+  "title": "Sales and profit dashboards in Tableau",
+  "when": "Oct 2025",
+  "context": "Interview case study",
+  "status": "Published on Tableau Public",
+  "oneLine": "An interactive Tableau dashboard over an e-commerce sales dataset that finds where profit leaks and what to fix first.",
+  "teaser": "$2.3M of sales across 793 customers in six linked Tableau views, with $400K+ a year in fixes found.",
+  "problem": "A dashboard project for my interview with Audible: an e-commerce sales dataset, and the question of where profitability could be improved and which fixes would matter most.",
+  "built": [
+   "Built an interactive Tableau dashboard with six linked views: KPIs and sales trends, profit by category and sub-category, shipping modes, return rates, a state map and customer segmentation",
+   "Tracked the headline KPIs with date, category and region filters: $2.3M in sales, $286K profit, 5,009 orders, 793 customers and a 5.91% return rate",
+   "Segmented customers on a sales against profit scatter plot to pick out the high-value group",
+   "Worked in SQL and Advanced Excel alongside Tableau to prepare and check the data"
+  ],
+  "results": [
+   "Found an $18K loss in Furniture, driven by the Tables sub-category",
+   "Showed that the top 10 customers bring in about 50% of profit",
+   "Mapped profit by state: California leads at +$76.4K, while Texas needs intervention at -$25.7K",
+   "Flagged quality issues in Technology from its 5.4% return rate",
+   "Identified $400K+ a year in optimisation opportunities through margins, returns and geographic expansion"
+  ],
+  "detail": "Sales by segment are seasonal: the Consumer segment peaks in September and again in November and December, well above the Corporate and Home Office lines.",
+  "stack": [
+   {
+    "name": "Tableau",
+    "icon": "tableau"
+   },
+   {
+    "name": "SQL",
+    "icon": "postgres"
+   },
+   {
+    "name": "Advanced Excel",
+    "icon": "ui-layers"
+   }
+  ],
+  "cover": "work-sales-kpi",
+  "coverAlt": "The KPI view of the Tableau dashboard: total sales, return rate, orders, profit and customers above monthly sales lines for three customer segments",
+  "coverCredit": null
+ },
+ {
+  "slug": "ais",
+  "name": "AIS ship-track data pipeline",
+  "title": "A data pipeline for AIS ship tracks",
+  "when": "Nov 2026",
+  "context": "OvGU team project",
+  "status": "In progress, 3 of 6 steps done",
+  "oneLine": "The data-preparation pipeline for a university team project that reads, checks and cleans AIS ship-tracking data for trajectory models.",
+  "teaser": "Cleans AIS ship positions from the Elbe estuary, a Rhine port and the Oslofjord for trajectory models: 9.7M of 18.3M Elbe positions kept.",
+  "problem": "The team needs clean real-world ship movement to train models that generate realistic multi-ship scenarios and the radar recordings that go with them. The AIS data came from three areas (Cuxhaven, Karlsruhe Rheinhafen, Oslofjord) in three different formats, about 9 GB unzipped, with dummy values, duplicate receptions, positions far outside the area and, for Cuxhaven, a third of reports with no timestamp.",
+  "built": [
+   "Wrote one parse step per source that converts the raw zip and CSV exports to Parquet, keeps each source's own column names, turns AIS 'not available' codes into nulls and records the raw file and line for every row",
+   "Applied seven ordered cleaning rules, including MMSI validation, a study-area box, removal of reports received twice within 60 s and GPS-spike detection, with every removal counted in a JSON report",
+   "Built a ship directory per source with a category derived from the ITU-R M.1371 ship type code",
+   "Drew maps of kept against removed positions to check that kept points follow rivers and fairways",
+   "Kept raw files read-only, with each step writing only its own output so any step can be re-run"
+  ],
+  "results": [
+   "Parsed 18,336,750 Cuxhaven, 4,412,342 Rheinhafen and 364,660 Oslofjord position reports, matching the profiling counts exactly",
+   "Kept 9,721,475 Cuxhaven reports (53%), 4,297,869 Rheinhafen reports (97%) and 364,520 Oslofjord reports (about 100%)",
+   "Ship directories of 1,550 (Cuxhaven), 1,006 (Rheinhafen) and 164 (Oslofjord) vessels"
+  ],
+  "detail": "One police boat accounts for 10% of all Rheinhafen data, mostly while moored, and causes most of the fast jumps left after cleaning. They look like real fast trips, so the cleaning keeps them and leaves the case to the journey-cutting step.",
+  "stack": [
+   {
+    "name": "Python 3.11",
+    "icon": "ui-box"
+   },
+   {
+    "name": "pandas",
+    "icon": "pandas-icon"
+   },
+   {
+    "name": "NumPy",
+    "icon": "numpy"
+   },
+   {
+    "name": "PyArrow",
+    "icon": "ui-database"
+   },
+   {
+    "name": "Parquet",
+    "icon": "ui-database"
+   },
+   {
+    "name": "Shapely",
+    "icon": "ui-map"
+   },
+   {
+    "name": "Matplotlib",
+    "icon": "ui-chart-line"
+   }
+  ],
+  "cover": "work-ais-elbe",
+  "coverAlt": "Map of ship positions in the Elbe estuary: kept positions in blue inside the study area, removed ones in orange",
+  "coverCredit": null
+ },
+ {
+  "slug": "mic-forensics",
+  "name": "Microphone forensics",
+  "title": "Microphone forensics from audio data",
+  "when": "",
+  "context": "OvGU team project",
+  "status": "At plan stage",
+  "oneLine": "A university team project to identify which USB headset made a recording from its audio fingerprint, currently at protocol stage.",
+  "teaser": "Records the same sounds on many headsets, extracts audio features and trains a classifier to tell which headset made a recording.",
+  "problem": "Every microphone colours sound slightly and adds its own background hiss, which leaves a fingerprint in its recordings. The task is to design a recording, pre-processing and labelling protocol, have it approved by the supervisor, then build classification pipelines that tell headset models and individual units apart.",
+  "built": [
+   "Designed a recording protocol where the headset is the only variable: fixed gain, Windows sound effects off, lossless WAV, fixed distance and direction, and headsets swapped between PCs each session",
+   "Planned a scripted pre-processing chain in SoX, LAME and Python: health check, mono, alignment on a start click, cutting into 1, 3 and 10 s pieces, and a separate set for quiet parts",
+   "Defined labelling with ID stickers, a standard file-name scheme, one metadata CSV and a SHA-256 checksum per file",
+   "Set an evaluation design that tests on whole held-out sessions and unseen headset units to avoid data leakage",
+   "Drafted the objectives slide and the data collection and pre-processing slide, with speaker notes"
+  ],
+  "results": [
+   "Protocol and slides drafted for 30 USB headsets of 10 models, recorded in 3 rounds of 10"
+  ],
+  "detail": "The plan deliberately skips noise removal, because standard clean-up and cepstral mean subtraction erase the device fingerprint the project is trying to detect. Volume levelling and low-cut filtering run only as separate test variants, since how loud a headset records is itself a clue.",
+  "stack": [
+   {
+    "name": "SoX",
+    "icon": "ui-audio-lines"
+   },
+   {
+    "name": "LAME",
+    "icon": "ui-audio-lines"
+   },
+   {
+    "name": "Python",
+    "icon": "python"
+   },
+   {
+    "name": "librosa",
+    "icon": "ui-audio-waveform"
+   }
+  ],
+  "cover": "photo-f80070573",
+  "coverAlt": "A headset with a boom microphone on a white display bust",
+  "coverCredit": {
+   "by": "Niklitov",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:PJSC_Oktava_headset.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "validator",
+  "name": "Experiment outcome validator",
+  "title": "Experiment outcome validator",
+  "when": "Jun to Oct 2026",
+  "context": "Audible (working student)",
+  "status": "In use every month",
+  "oneLine": "Checks reported test results against measured data: 5 hours to 10 minutes.",
+  "teaser": "Checks reported test results against measured data: 5 hours to 10 minutes.",
+  "problem": "",
+  "built": [],
+  "results": [],
+  "detail": "",
+  "stack": [],
+  "cover": "photo-f152687098",
+  "coverAlt": "A clipboard on a wooden table holding a handwritten list of steps",
+  "coverCredit": {
+   "by": "RyanT27",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Clipboard_on_a_table_with_steps_listed_on_it.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "dashboards",
+  "name": "Experimentation dashboards",
+  "title": "Experimentation dashboards",
+  "when": "Q1 2026",
+  "context": "Audible (working student)",
+  "status": "Published",
+  "oneLine": "Three linked Tableau dashboards on Redshift, one a market heatmap.",
+  "teaser": "Three linked Tableau dashboards on Redshift, one a market heatmap.",
+  "problem": "",
+  "built": [],
+  "results": [],
+  "detail": "",
+  "stack": [],
+  "cover": "photo-f52434689",
+  "coverAlt": "A bar chart on paper built from stacks of coloured sweets",
+  "coverCredit": {
+   "by": "Mvolz",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Candy_bar_graph_made_with_Starburst_candies.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "bayes",
+  "name": "Bayesian against frequentist",
+  "title": "Bayesian against frequentist",
+  "when": "Oct 2026",
+  "context": "Audible (working student)",
+  "status": "Analysis complete",
+  "oneLine": "Does the statistical method change which tests count as wins?",
+  "teaser": "Does the statistical method change which tests count as wins?",
+  "problem": "",
+  "built": [],
+  "results": [],
+  "detail": "",
+  "stack": [],
+  "cover": "photo-f12225034",
+  "coverAlt": "A set of coloured role-playing dice on a white surface",
+  "coverCredit": {
+   "by": "Diacritica",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "frictionfinder",
+  "name": "FrictionFinder",
+  "title": "FrictionFinder",
+  "when": "Feb to Aug 2026",
+  "context": "Audible (working student)",
+  "status": "In use",
+  "oneLine": "Team problems voted on and de-duplicated: 23 colleagues, 90% of 12 fixed.",
+  "teaser": "Team problems voted on and de-duplicated: 23 colleagues, 90% of 12 fixed.",
+  "problem": "",
+  "built": [],
+  "results": [],
+  "detail": "",
+  "stack": [],
+  "cover": "photo-f34594370",
+  "coverAlt": "A wall covered in coloured sticky notes",
+  "coverCredit": {
+   "by": "ProjectManhattan",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Sticky_Notes_2.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "chorus",
+  "name": "Chorus",
+  "title": "Chorus",
+  "when": "Jun 2026",
+  "context": "Audible (working student)",
+  "status": "A prototype that won first prize",
+  "oneLine": "A social book-club prototype; first prize at a company hackathon.",
+  "teaser": "A social book-club prototype; first prize at a company hackathon.",
+  "problem": "",
+  "built": [],
+  "results": [],
+  "detail": "",
+  "stack": [],
+  "cover": "photo-f65836670",
+  "coverAlt": "Studio headphones resting on a mixing desk",
+  "coverCredit": {
+   "by": "Dorieo",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:AKG_Acoustics_headphones.jpg",
+   "source": "Wikimedia Commons"
+  }
+ },
+ {
+  "slug": "skill",
+  "name": "Governed AI analysis skill",
+  "title": "Governed AI analysis skill",
+  "when": "Q3 to Q4 2026",
+  "context": "Audible (working student)",
+  "status": "Shipped",
+  "oneLine": "Answers sign-up questions; totals match the official figures.",
+  "teaser": "Answers sign-up questions; totals match the official figures.",
+  "problem": "",
+  "built": [],
+  "results": [],
+  "detail": "",
+  "stack": [],
+  "cover": "photo-f80600603",
+  "coverAlt": "A room of labelled filing cabinets and archive boxes",
+  "coverCredit": {
+   "by": "Pru.mitchell",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Womens_Art_Register_files.jpg",
+   "source": "Wikimedia Commons"
+  }
+ }
+]
